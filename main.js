@@ -20,7 +20,9 @@ slider.value = gameSpeed;
 const showGameSpeed = document.getElementById(`showGameSpeed`);
 showGameSpeed.innerHTML = gameSpeed;
 slider.addEventListener(`change`, function (e) {
-    console.log(e.target.value);
+    //console.log(e.target.value);
+    gameSpeed = e.target.value;
+    showGameSpeed.innerHTML = gameSpeed;
 })
 
 class Layer {
