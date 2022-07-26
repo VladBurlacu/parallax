@@ -101,7 +101,7 @@ const layer8 = new Layer(backgroundLayer8,0.9);
 class Obstacle {
     constructor() {
         this.position = {
-            x: 400,
+            x: 900,
             y: 750
         }
         this.width = 100
@@ -114,7 +114,7 @@ class Obstacle {
 }
 
 const player = new Player();
-const obstacle = new Obstacle();
+const obstacles = [new Obstacle()]
 const keys = {
     right: {
         pressed: false
@@ -132,21 +132,43 @@ function  animate() {
         object.update();
         object.draw();
         player.update()
-        obstacle.draw();
+        obstacles.forEach((obstacle) => {
+            obstacles.draw();
+        })
+
 
         if (keys.right.pressed && player.position.x < 300) {
             player.velocity.x = 1
         } else if (keys.left.pressed && player.position.x > 100) {
             player.velocity.x = -1
         } else {
-            player.velocity.x = 0
+            player.velocity.x = 0;
 
             if(keys.right.pressed) {
-                obstacle.position.x -= 1
+                obstacles.forEach((obstacle) => {
+                    obstacles.position.x -= 1
+                })
             } else if (keys.left.pressed) {
-                obstacle.position.x += 1
+                obstacles.forEach((obstacle) => {
+                    obstacles.position.x += 1
+                })
             }
         }
+
+        //obstacles collision detection
+        /*obstacles.forEach((obstacle) => {
+            if (
+                player.position.y + player.height
+                <= obstacle.position.y &&
+                player.position.y + player.height
+                +player.velocity.y >=
+                obstacle.position.y &&
+                player.position.x + player.width
+                >= obstacle.position.x &&
+                player.position.x <= obstacle.position.x + obstacle.width
+            )
+        })*/
+
     })
     requestAnimationFrame(animate);
 };
