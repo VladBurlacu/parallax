@@ -32,7 +32,26 @@ slider.addEventListener(`change`, function (e) {
     //console.log(e.target.value);
     gameSpeed = e.target.value;
     showGameSpeed.innerHTML = gameSpeed;
-})
+});
+
+canvas.width = window.innerWidth;
+
+class Player {
+    constructor() {
+        this.position = {
+            x: 100,
+            y: 500
+        }
+        this.width = 100
+        this.height = 100
+    }
+    draw() {
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
+const player = new Player();
+
 
 class Layer {
     constructor(image, speedModifier) {
@@ -74,6 +93,7 @@ function  animate() {
     gameObjects.forEach(object => {
         object.update();
         object.draw();
+        player.draw();
     })
     requestAnimationFrame(animate);
 };
